@@ -75,17 +75,34 @@ F2_summed = [sensor1_summedT, sensor1_summedT];
 [eigenvectorsCol1_summed, eigenvaluesCol1_summed] = eig(covMatCol1_summed);
 [eigenvectorsCol2_summed, eigenvaluesCol2_summed] = eig(covMatCol2_summed);
 
+diagonal1 = size(eigenvaluesCol1, 1);
+diagonal2 = size(eigenvaluesCol2, 1);
+for i = 1:diagonal1
+ diagonal1(i, 1) = eigenvaluesCol1(i, i); 
+ diagonal2(i, 1) = eigenvaluesCol2(i, i);
+end
 
-%Creating data visualizations
-%Last 11 FFT show evidence of the pump stopping and are excluded
-%plotByFreq2D(F2_fixed(1:length(F2_fixed)-11*512,:));
-plotByFreq3D(F2_fixed(1:length(F2_fixed)-11*512,:));
+sizeFFT = 512;
 
-figure();
-%diagonal1 value 453 is negative, diagonal2 is complex double
-[diagonal1, diagonal2] = plotLogEigenvalues(eigenvaluesCol1, eigenvaluesCol2, 512);
+subplot(1, 2, 1);
+plot(1:sizeFFT, -log10(sort(diagonal1, 'descend')));
+xlabel('Eigenvalues in Descending Order');
+ylabel('-log10(Eigenvalue)');
+title('Sensor 1');
+axis([0 sizeFFT 0 25]);
 
-figure();
-plotLogEigenvalues(eigenvaluesCol1_summed, eigenvaluesCol2_summed, 256);
+subplot(1, 2, 2);
+plot(1:sizeFFT, -log10(sort(diagonal2, 'descend')));
+xlabel('Eigenvalues in Descending Order');
+ylabel('-log10(Eigenvalue)');
+title('Sensor 2');
+axis([0 sizeFFT 0 25]);
 
-[xCol1 xCol2] = plotFFTProjection(eigenvaluesCol1, eigenvaluesCol2, F2_fixed);
+countNeg = 0;
+i = 1;
+while i <= length(diagonal1)
+    if diagonal1(i, 1) <= 0
+        countNeg = countNeg + 1;
+    end
+    i = i+1;
+end
