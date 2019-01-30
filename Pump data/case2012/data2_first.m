@@ -47,7 +47,7 @@ covarianceMatrix = covariancematrixcreator(F2_fixed);
 [eigenvectors, eigenvalues] = eig(covarianceMatrix);
 
 %Getting separate covariance matrices
-[covMatCol1, covMatCol2] = separatedcovariancematrixcreator(F2_fixed);
+[covMatCol1, covMatCol2] = separatedcovariancematrixcreator(F2_fixed, 512);
 [eigenvectorsCol1, eigenvaluesCol1] = eig(covMatCol1);
 [eigenvectorsCol2, eigenvaluesCol2] = eig(covMatCol2);
 
@@ -71,7 +71,7 @@ end
 F2_summed = [sensor1_summedT, sensor1_summedT];
 
 %Getting separate cov matricies for summed values
-[covMatCol1_summed, covMatCol2_summed] = separatedcovariancematrixcreator(F2_summed);
+[covMatCol1_summed, covMatCol2_summed] = separatedcovariancematrixcreator(F2_summed, 256);
 [eigenvectorsCol1_summed, eigenvaluesCol1_summed] = eig(covMatCol1_summed);
 [eigenvectorsCol2_summed, eigenvaluesCol2_summed] = eig(covMatCol2_summed);
 
@@ -83,7 +83,7 @@ plotByFreq3D(F2_fixed(1:length(F2_fixed)-11*512,:));
 
 figure();
 %diagonal1 value 453 is negative, diagonal2 is complex double
-plotLogEigenvalues(eigenvaluesCol1, eigenvaluesCol2);
+plotLogEigenvalues(eigenvaluesCol1, eigenvaluesCol2, 512);
 
 figure();
-plotLogEigenvalues(eigenvaluesCol1_summed, eigenvaluesCol2_summed);
+plotLogEigenvalues(eigenvaluesCol1_summed, eigenvaluesCol2_summed, 256);
