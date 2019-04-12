@@ -1,9 +1,9 @@
 %Loading variables
-load('Fdata2_first.mat');
+load('threemonthmodel.mat');
 F2_fixed = F2;
 
 %Adding missing element before recording starts in a cycle
-F2_fixed = [F2_fixed(1:42747,:); [0,0,2]; F2_fixed(42748:end,:)];
+%F2_fixed = [F2_fixed(1:42747,:); [0,0,2]; F2_fixed(42748:end,:)];
 
 F2_fixed = DataCleaner(F2_fixed);
 
@@ -60,17 +60,10 @@ for i = 1:2:length(F2_fixedT)
 end
 
 %Plost with last 11 included
-%plotByFreq2D(F2_fixedTCol1, F2_fixedTCol2);
+plotByFreq2D(F2_fixedTCol1, F2_fixedTCol2);
 %plotByFreq3D(F2_fixed(:,:));
 
 %{
-
-%Removing last 11 as they show evidence of pump stopping
-F2_fixed = F2_fixed(1:length(F2_fixed)-11*512,:);
-numberFFT = floor(length(F2_fixed)/512);
-sensor1 = sensor1(1:506,:);
-sensor2 = sensor2(1:506,:);
-repeat1 = repeat1(1:506,:);
 
 F2_fixedT = [];
 for i = 1:numberFFT
