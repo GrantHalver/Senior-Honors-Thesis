@@ -1,5 +1,5 @@
 # Senior-Honors-Thesis
-Fourier Transformed Water Pump Accelerometer Data
+Fourier Transformed Vacuum Pump Accelerometer Data
 
 Honors Thesis for Barrett, The Honors College at ASU Tempe Campus<br />
 This repo will be the programming work that has been done on the project.<br />
